@@ -1,30 +1,21 @@
 import React, { useState } from 'react';
-import {
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { ScrollView, StyleSheet, useColorScheme, View } from 'react-native';
 import { Button } from 'react-native-paper';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from '../components/Header/Header';
-import { COLORS, SCREENS } from '../constants';
+import { COLORS, SCREENS, SKELETON_LAYOUT } from '../constants';
 import DocumentPicker, { isInProgress } from 'react-native-document-picker';
 import { AudioPlayer } from 'react-native-simple-audio-player';
-import { getFrequencyArray } from '../api/analyze';
-import { AreaChart, Grid, YAxis, XAxis } from 'react-native-svg-charts';
+import { getFrequencyArray, getSongDuration } from '../api/analyze';
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
-import * as shape from 'd3-shape';
-import { getXAxis } from '../utils';
-
-const windowHeight = Dimensions.get('window').height;
-const windowWidth = Dimensions.get('window').width;
+import { getSongParts } from '../utils';
+import { FrequencyChart } from '../components/FrequencyChart/FrequencyChart.js';
 
 const HomeScreen = ({ navigation }) => {
   const [result, setResult] = useState(null);
-  const [frequencies, setFrequencies] = useState(null);
+  const [frequencies, setFrequencies] = useState([]);
+  const [duration, setDuration] = useState(null);
 
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -45,7 +36,41 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-  const contentInset = { top: 20, bottom: 20, left: 10, right: 10 };
+  const onChoosePress = async () => {
+    setResult(null);
+    setFrequencies([]);
+    setDuration(null);
+    let newFrequencies = [];
+
+    try {
+      const pickerResult = await DocumentPicker.pickSingle({
+        presentationStyle: 'fullScreen',
+        copyTo: 'cachesDirectory',
+      });
+      setResult(pickerResult);
+      const { duration: songDuration } = await getSongDuration(pickerResult);
+
+      if (songDuration) {
+        setDuration(songDuration);
+
+        const partsOfSong = getSongParts({ songDuration });
+        for (let i = 0; i < partsOfSong; i++) {
+          const frequencyArray = await getFrequencyArray({
+            file: pickerResult,
+            songPart: i + 1,
+            totalParts: partsOfSong,
+          });
+
+          // set frequencies using previous value
+          newFrequencies = [...newFrequencies, ...frequencyArray];
+          setFrequencies(newFrequencies);
+        }
+      }
+    } catch (e) {
+      console.log('error', e);
+      handleError(e);
+    }
+  };
 
   return (
     <ScrollView style={backgroundStyle}>
@@ -57,24 +82,7 @@ const HomeScreen = ({ navigation }) => {
           buttonColor={COLORS.background}
           textColor={COLORS.white}
           labelStyle={styles.input}
-          onPress={async () => {
-            setResult(null);
-            setFrequencies(null);
-
-            try {
-              const pickerResult = await DocumentPicker.pickSingle({
-                presentationStyle: 'fullScreen',
-                copyTo: 'cachesDirectory',
-              });
-              setResult(pickerResult);
-
-              const frequencyArray = await getFrequencyArray(pickerResult);
-              setFrequencies(frequencyArray);
-            } catch (e) {
-              console.log('error', e);
-              handleError(e);
-            }
-          }}
+          onPress={onChoosePress}
         >
           CHOOSE FILE
         </Button>
@@ -90,75 +98,17 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.container}>
               <SkeletonContent
                 containerStyle={styles.skeleton}
-                isLoading={
-                  !frequencies?.frequencies ||
-                  frequencies?.frequencies.length === 0
-                }
+                isLoading={frequencies.length === 0}
                 boneColor={COLORS.light}
                 highlightColor={COLORS.background}
                 animationType="pulse"
-                layout={[
-                  {
-                    flexDirection: 'row',
-                    width: '80%',
-                    height: 100,
-                    children: [
-                      {
-                        width: 20,
-                        height: 100,
-                        marginRight: 4,
-                      },
-                      {
-                        flex: 1,
-                        height: 100,
-                      },
-                    ],
-                  },
-                  {
-                    flexDirection: 'row',
-                    width: '80%',
-                    height: 20,
-                    marginTop: 4,
-                    children: [
-                      {
-                        width: 20,
-                        height: 20,
-                        marginRight: 4,
-                      },
-                      {
-                        flex: 1,
-                        height: 20,
-                      },
-                    ],
-                  },
-                ]}
+                layout={SKELETON_LAYOUT}
               >
-                {frequencies?.frequencies && (
-                  <View style={styles.chartContainer}>
-                    <YAxis
-                      contentInset={contentInset}
-                      data={frequencies.frequencies}
-                      svg={styles.svg}
-                      formatLabel={value => `${value} Hz`}
-                    />
-                    <View style={styles.chartViewContainer}>
-                      <AreaChart
-                        style={styles.chart}
-                        contentInset={contentInset}
-                        data={frequencies.frequencies}
-                        svg={{ fill: COLORS.background }}
-                        curve={shape.curve}
-                      >
-                        <Grid />
-                      </AreaChart>
-                      <XAxis
-                        data={getXAxis(frequencies.duration)}
-                        formatLabel={value => value}
-                        contentInset={contentInset}
-                        svg={styles.svg}
-                      />
-                    </View>
-                  </View>
+                {frequencies.length > 0 && (
+                  <FrequencyChart
+                    frequencies={frequencies}
+                    duration={duration}
+                  />
                 )}
               </SkeletonContent>
             </View>
@@ -195,21 +145,6 @@ const styles = StyleSheet.create({
   },
   skeleton: {
     flex: 1,
-  },
-  chartContainer: {
-    height: 300,
-    maxHeight: windowHeight / 2,
-    flexDirection: 'row',
-  },
-  chartViewContainer: {
-    width: windowWidth - 80,
-  },
-  chart: {
-    height: 300,
-  },
-  svg: {
-    fill: COLORS.background,
-    fontSize: 14,
   },
 });
 

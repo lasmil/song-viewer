@@ -12,6 +12,8 @@ import {
 import logo from '../../../assets/logo.png';
 import settingsLight from '../../../assets/settings-light.png';
 import settingsDark from '../../../assets/settings-dark.png';
+import arrowLight from '../../../assets/arrow-light.png';
+import arrowDark from '../../../assets/arrow-dark.png';
 import { COLORS, SCREENS } from '../../constants';
 
 const Header = ({ navigation, currentScreen }) => {
@@ -36,7 +38,15 @@ const Header = ({ navigation, currentScreen }) => {
           }}
         >
           <Image
-            source={isDarkMode ? settingsLight : settingsDark}
+            source={
+              currentScreen === SCREENS.HOME
+                ? isDarkMode
+                  ? settingsLight
+                  : settingsDark
+                : isDarkMode
+                ? arrowDark
+                : arrowLight
+            }
             style={styles.image}
           />
         </TouchableOpacity>
