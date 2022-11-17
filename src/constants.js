@@ -49,3 +49,22 @@ export const SKELETON_LAYOUT = [
 ];
 
 export const CHART_WINDOW_THRESHOLD_SECONDS = 5;
+
+export const LANGUAGES = [
+  {
+    label: 'English',
+    value: 'en',
+  },
+  {
+    label: 'Español',
+    value: 'es',
+  },
+  {
+    label: 'Română',
+    value: 'ro',
+  },
+  {
+    label: 'Magyar',
+    value: 'hu',
+  },
+];

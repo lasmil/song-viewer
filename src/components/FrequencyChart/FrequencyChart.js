@@ -5,7 +5,6 @@ import {
   Image,
   TouchableOpacity,
   View,
-  useColorScheme,
 } from 'react-native';
 
 import {
@@ -21,16 +20,29 @@ import { transformFrequencies, getMaxFrequency } from '../../utils';
 
 import arrowLight from '../../../assets/arrow-light.png';
 import arrowDark from '../../../assets/arrow-dark.png';
+import { useSettings } from '../../context/SettingsProvider';
 
 const windowHeight = Dimensions.get('window').height;
 
 export const FrequencyChart = ({ frequencies, duration }) => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const { themeMode } = useSettings();
+  const isDarkMode = themeMode === 'dark';
 
   const [currentView, setCurrentView] = useState({
     start: 0,
     end: CHART_WINDOW_THRESHOLD_SECONDS,
   });
+
+  const axisStyle = {
+    fontSize: 14,
+    fontWeight: 'bold',
+    fontFamily: 'Roboto',
+    color: isDarkMode ? COLORS.lighter : COLORS.background,
+  };
+
+  const chartStyle = {
+    backgroundColor: isDarkMode ? COLORS.darker : COLORS.lighter,
+  };
 
   // use currentView to calculate the start and end index of the frequencies array
   const startIndex = Math.floor(
@@ -61,7 +73,7 @@ export const FrequencyChart = ({ frequencies, duration }) => {
         />
       </TouchableOpacity>
       <Chart
-        style={styles.chartContainer}
+        style={[styles.chartContainer, chartStyle]}
         data={transformFrequencies(slicedFrequencies)}
         padding={{ left: 80, bottom: 20, right: 20, top: 20 }}
         xDomain={{ min: 0, max: slicedFrequencies.length }}
@@ -72,11 +84,7 @@ export const FrequencyChart = ({ frequencies, duration }) => {
           theme={{
             labels: {
               formatter: v => `${parseInt(v, 10)} Hz`,
-              label: {
-                fontSize: 14,
-                fontWeight: 'bold',
-                fontFamily: 'Roboto',
-              },
+              label: axisStyle,
             },
           }}
         />
@@ -104,34 +112,36 @@ export const FrequencyChart = ({ frequencies, duration }) => {
 
                 return `${minutes}:${seconds}`;
               },
-              label: {
-                fontSize: 14,
-                fontWeight: 'bold',
-                fontFamily: 'Roboto',
-              },
+              label: axisStyle,
             },
           }}
         />
         <Area
           theme={{
             gradient: {
-              from: { color: COLORS.background },
-              to: { color: COLORS.background, opacity: 0.8 },
+              from: { color: isDarkMode ? COLORS.lighter : COLORS.background },
+              to: {
+                color: isDarkMode ? COLORS.lighter : COLORS.background,
+                opacity: 0.8,
+              },
             },
           }}
         />
         <Line
           tooltipComponent={<Tooltip />}
           theme={{
-            stroke: { color: COLORS.background, width: 1 },
+            stroke: {
+              color: isDarkMode ? COLORS.lighter : COLORS.background,
+              width: 1,
+            },
             scatter: {
               default: {
                 width: 2,
                 height: 2,
                 rx: 2,
-                color: COLORS.background,
+                color: isDarkMode ? COLORS.lighter : COLORS.background,
               },
-              selected: { color: COLORS.black },
+              selected: { color: isDarkMode ? COLORS.white : COLORS.black },
             },
           }}
         />

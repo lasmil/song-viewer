@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 
@@ -15,20 +14,29 @@ import settingsDark from '../../../assets/settings-dark.png';
 import arrowLight from '../../../assets/arrow-light.png';
 import arrowDark from '../../../assets/arrow-dark.png';
 import { COLORS, SCREENS } from '../../constants';
+import { useSettings } from '../../context/SettingsProvider';
+import { useTranslation } from 'react-i18next';
 
 const Header = ({ navigation, currentScreen }) => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const { t } = useTranslation();
+
+  const { themeMode } = useSettings();
+  const isDarkMode = themeMode === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? COLORS.darker : COLORS.lighter,
+  };
+
+  const titleStyle = {
+    color: isDarkMode ? COLORS.lighter : COLORS.darker,
   };
 
   return (
     <SafeAreaView style={backgroundStyle}>
       <View style={styles.headerContainer}>
         <Image source={logo} style={styles.image} />
-        <Text style={styles.title}>
-          {currentScreen === SCREENS.HOME ? 'Song viewer' : 'Settings'}
+        <Text style={[styles.title, titleStyle]}>
+          {currentScreen === SCREENS.HOME ? 'Song viewer' : t('settings')}
         </Text>
         <TouchableOpacity
           onPress={() => {
@@ -73,7 +81,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: COLORS.background,
     fontFamily: 'Roboto',
     fontWeight: '700',
   },

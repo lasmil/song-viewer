@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, useColorScheme, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from '../components/Header/Header';
 import { COLORS, SCREENS, SKELETON_LAYOUT } from '../constants';
 import DocumentPicker, { isInProgress } from 'react-native-document-picker';
@@ -11,16 +10,26 @@ import { getFrequencyArray, getSongDuration } from '../api/analyze';
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 import { getSongParts } from '../utils';
 import { FrequencyChart } from '../components/FrequencyChart/FrequencyChart.js';
+import { useSettings } from '../context/SettingsProvider';
+import { useTranslation } from 'react-i18next';
 
 const HomeScreen = ({ navigation }) => {
+  const { themeMode } = useSettings();
+  const { t } = useTranslation();
+
+  const isDarkMode = themeMode === 'dark';
+
   const [result, setResult] = useState(null);
   const [frequencies, setFrequencies] = useState([]);
   const [duration, setDuration] = useState(null);
 
-  const isDarkMode = useColorScheme() === 'dark';
-
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? COLORS.background : COLORS.lighter,
+    height: '100%',
+  };
+
+  const audiPlayerStyle = {
+    backgroundColor: isDarkMode ? COLORS.darker : COLORS.background,
   };
 
   const handleError = err => {
@@ -73,49 +82,53 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={backgroundStyle}>
-      <Header currentScreen={SCREENS.HOME} navigation={navigation} />
-      <View style={styles.mainContainer}>
-        <Button
-          style={styles.input}
-          mode="contained"
-          buttonColor={COLORS.background}
-          textColor={COLORS.white}
-          labelStyle={styles.input}
-          onPress={onChoosePress}
-        >
-          CHOOSE FILE
-        </Button>
-        {result?.fileCopyUri && (
-          <View style={styles.container}>
-            <View>
-              <AudioPlayer
-                url={result.fileCopyUri}
-                style={styles.audioPlayer}
-              />
-            </View>
-
+    <SafeAreaView style={backgroundStyle}>
+      <ScrollView>
+        <Header currentScreen={SCREENS.HOME} navigation={navigation} />
+        <View style={styles.mainContainer}>
+          <Button
+            style={styles.input}
+            mode="contained"
+            buttonColor={isDarkMode ? COLORS.lighter : COLORS.background}
+            textColor={isDarkMode ? COLORS.darker : COLORS.lighter}
+            labelStyle={styles.input}
+            onPress={onChoosePress}
+          >
+            {t('choose_file')}
+          </Button>
+          {result?.fileCopyUri && (
             <View style={styles.container}>
-              <SkeletonContent
-                containerStyle={styles.skeleton}
-                isLoading={frequencies.length === 0}
-                boneColor={COLORS.light}
-                highlightColor={COLORS.background}
-                animationType="pulse"
-                layout={SKELETON_LAYOUT}
-              >
-                {frequencies.length > 0 && (
-                  <FrequencyChart
-                    frequencies={frequencies}
-                    duration={duration}
-                  />
-                )}
-              </SkeletonContent>
+              <View>
+                <AudioPlayer
+                  url={result.fileCopyUri}
+                  style={[styles.audioPlayer, audiPlayerStyle]}
+                />
+              </View>
+
+              <View style={styles.container}>
+                <SkeletonContent
+                  containerStyle={styles.skeleton}
+                  isLoading={frequencies.length === 0}
+                  boneColor={isDarkMode ? COLORS.background : COLORS.lighter}
+                  highlightColor={
+                    isDarkMode ? COLORS.lighter : COLORS.background
+                  }
+                  animationType="pulse"
+                  layout={SKELETON_LAYOUT}
+                >
+                  {frequencies.length > 0 && (
+                    <FrequencyChart
+                      frequencies={frequencies}
+                      duration={duration}
+                    />
+                  )}
+                </SkeletonContent>
+              </View>
             </View>
-          </View>
-        )}
-      </View>
-    </ScrollView>
+          )}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -139,7 +152,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   audioPlayer: {
-    backgroundColor: COLORS.background,
     padding: 8,
     paddingTop: 12,
   },
