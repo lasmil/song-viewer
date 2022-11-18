@@ -1,10 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-// import en.json
-import en from './en.js';
-import es from './es.js';
-import ro from './ro.js';
-import hu from './hu.js';
+import en from './en.json';
+import es from './es.json';
+import ro from './ro.json';
+import hu from './hu.json';
 
 i18n.use(initReactI18next).init({
   // we init with resources

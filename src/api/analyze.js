@@ -14,6 +14,10 @@ export const getFrequencyArray = async ({ file, songPart, totalParts }) => {
     },
   });
 
+  if (!response.ok) {
+    return [];
+  }
+
   return response.json();
 };
 
@@ -26,6 +30,12 @@ export const getSongDuration = async file => {
     method: 'POST',
     body,
   });
+
+  if (!response.ok) {
+    return {
+      duration: 0,
+    };
+  }
 
   return response.json();
 };

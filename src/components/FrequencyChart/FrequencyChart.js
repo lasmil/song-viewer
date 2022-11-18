@@ -16,7 +16,7 @@ import {
   Tooltip,
 } from 'react-native-responsive-linechart';
 import { COLORS, CHART_WINDOW_THRESHOLD_SECONDS } from '../../constants';
-import { transformFrequencies, getMaxFrequency } from '../../utils';
+import { transformFrequencies } from '../../utils';
 
 import arrowLight from '../../../assets/arrow-light.png';
 import arrowDark from '../../../assets/arrow-dark.png';
@@ -24,7 +24,7 @@ import { useSettings } from '../../context/SettingsProvider';
 
 const windowHeight = Dimensions.get('window').height;
 
-export const FrequencyChart = ({ frequencies, duration }) => {
+export const FrequencyChart = ({ frequencies, duration, maxFrequency }) => {
   const { themeMode } = useSettings();
   const isDarkMode = themeMode === 'dark';
 
@@ -53,7 +53,6 @@ export const FrequencyChart = ({ frequencies, duration }) => {
   );
 
   const slicedFrequencies = frequencies.slice(startIndex, endIndex);
-  const maxFrequency = getMaxFrequency(slicedFrequencies);
 
   return (
     <View style={styles.frequenciesContainer}>

@@ -8,7 +8,7 @@ import DocumentPicker, { isInProgress } from 'react-native-document-picker';
 import { AudioPlayer } from 'react-native-simple-audio-player';
 import { getFrequencyArray, getSongDuration } from '../api/analyze';
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
-import { getSongParts } from '../utils';
+import { getSongParts, getMaxFrequency } from '../utils';
 import { FrequencyChart } from '../components/FrequencyChart/FrequencyChart.js';
 import { useSettings } from '../context/SettingsProvider';
 import { useTranslation } from 'react-i18next';
@@ -81,6 +81,8 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
+  const maxFrequency = getMaxFrequency(frequencies);
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <ScrollView>
@@ -120,6 +122,7 @@ const HomeScreen = ({ navigation }) => {
                     <FrequencyChart
                       frequencies={frequencies}
                       duration={duration}
+                      maxFrequency={maxFrequency}
                     />
                   )}
                 </SkeletonContent>
