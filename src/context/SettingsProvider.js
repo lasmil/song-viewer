@@ -1,5 +1,6 @@
-import React, { useContext, useState, createContext } from 'react';
+import React, { useContext, createContext } from 'react';
 import { useColorScheme } from 'react-native';
+import { useAsyncStorage } from '../hooks/useAsyncStorage';
 
 const SettingsContext = createContext({});
 
@@ -12,10 +13,14 @@ export const useSettings = () => {
 };
 
 export const SettingsProvider = ({ children }) => {
+  const [themeMode, setThemeMode] = useAsyncStorage(
+    'themMode',
+    isDarkMode ? 'dark' : 'light'
+  );
+
   const colorScheme = useColorScheme();
   const isDarkMode = colorScheme === 'dark';
 
-  const [themeMode, setThemeMode] = useState(isDarkMode ? 'dark' : 'light');
   const onToggleThemeMode = () =>
     setThemeMode(themeMode === 'dark' ? 'light' : 'dark');
 

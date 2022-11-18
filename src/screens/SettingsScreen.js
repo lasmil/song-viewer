@@ -7,8 +7,11 @@ import { COLORS, LANGUAGES, SCREENS } from '../constants';
 import { useSettings } from '../context/SettingsProvider';
 import { useTranslation } from 'react-i18next';
 import { Dropdown } from 'react-native-element-dropdown';
+import { useAsyncStorage } from '../hooks/useAsyncStorage';
 
 const SettingsScreen = ({ navigation }) => {
+  const [language, setLanguage] = useAsyncStorage('language', 'en');
+
   const { i18n, t } = useTranslation();
 
   const { themeMode, onToggleThemeMode } = useSettings();
@@ -26,10 +29,11 @@ const SettingsScreen = ({ navigation }) => {
   const onToggleSwitch = () => onToggleThemeMode();
 
   const changeLanguage = lng => {
+    setLanguage(lng);
     i18n.changeLanguage(lng);
   };
 
-  const lng = i18n.language;
+  const lng = language || i18n.language;
 
   return (
     <SafeAreaView style={backgroundStyle}>
