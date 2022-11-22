@@ -1,5 +1,5 @@
 import { BACKEND_API } from '@env';
-import { getSongDuration, getFrequencyArray } from '../src/api/analyze';
+import { getSongDuration, getFrequencyArray } from '../api/analyze';
 
 function FormDataMock() {
   this.append = jest.fn();

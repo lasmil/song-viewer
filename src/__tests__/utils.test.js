@@ -3,7 +3,7 @@ import {
   getXAxis,
   getSongParts,
   transformFrequencies,
-} from '../src/utils';
+} from '../utils';
 
 test('getMaxFrequency', () => {
   const frequencies = [1, 2, 3, 4, 5];

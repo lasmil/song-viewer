@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react-native';
-import { FrequencyChart } from '../src/components/FrequencyChart/FrequencyChart';
+import { FrequencyChart } from '../components/FrequencyChart/FrequencyChart';
 
 jest.mock('@react-native-async-storage/async-storage');
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { render, screen, fireEvent } from '@testing-library/react-native';
-import Header from '../src/components/Header/Header';
-import { SCREENS } from '../src/constants';
+import Header from '../components/Header/Header';
+import { SCREENS } from '../constants';
 
 jest.mock('@react-native-async-storage/async-storage');
 
