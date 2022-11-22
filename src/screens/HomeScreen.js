@@ -85,7 +85,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <ScrollView>
+      <ScrollView stickyHeaderIndices={[0]}>
         <Header currentScreen={SCREENS.HOME} navigation={navigation} />
         <View style={styles.mainContainer}>
           <Button
