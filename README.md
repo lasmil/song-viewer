@@ -41,6 +41,11 @@ This will start up the Metro bundler, and the iOS & Android emulators, and enabl
 Designs are available in Figma [here](https://www.figma.com/file/cES8U6tug2xYFymuISaPBT/Untitled?node-id=0%3A1).
 You might need to create an account to access them or ask for access.
 
+## Future work
+
+- Investigate how to use [react-native-audio-video-tools](https://github.com/PatrissolJuns/react-native-audio-video-tools) - this can come in handy to cut the song and send it to the API (instead of sending the whole song)
+
+
 ## Contributing
 
 If you want to contribute to this project feel free to open a PR. If you want to discuss something, open an issue.
