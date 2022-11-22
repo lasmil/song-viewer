@@ -57,6 +57,7 @@ export const FrequencyChart = ({ frequencies, duration, maxFrequency }) => {
   return (
     <View style={styles.frequenciesContainer}>
       <TouchableOpacity
+        testID="left-arrow"
         style={[currentView.start === 0 && styles.disabled]}
         disabled={currentView.start === 0}
         onPress={() => {
@@ -146,6 +147,7 @@ export const FrequencyChart = ({ frequencies, duration, maxFrequency }) => {
         />
       </Chart>
       <TouchableOpacity
+        testID="right-arrow"
         style={[currentView.end >= duration && styles.disabled]}
         disabled={currentView.end >= duration}
         onPress={() => {

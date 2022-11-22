@@ -34,11 +34,12 @@ const Header = ({ navigation, currentScreen }) => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <View style={styles.headerContainer}>
-        <Image source={logo} style={styles.image} />
+        <Image source={logo} style={styles.image} testID="header-logo" />
         <Text style={[styles.title, titleStyle]}>
           {currentScreen === SCREENS.HOME ? 'Song viewer' : t('settings')}
         </Text>
         <TouchableOpacity
+          testID="header-settings-button"
           onPress={() => {
             navigation.navigate(
               currentScreen === SCREENS.HOME ? SCREENS.SETTINGS : SCREENS.HOME
@@ -56,6 +57,7 @@ const Header = ({ navigation, currentScreen }) => {
                 : arrowLight
             }
             style={styles.image}
+            testID="header-settings"
           />
         </TouchableOpacity>
       </View>

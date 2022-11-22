@@ -24,6 +24,9 @@ export const getXAxis = duration => {
 };
 
 export const getSongParts = ({ songDuration }) => {
+  if (songDuration <= 0) {
+    return 0;
+  }
   let addedValue = 1;
   if ((songDuration / SONG_DURATION_THRESHOLD_SECONDS) % 1 === 0) {
     addedValue = 0;
