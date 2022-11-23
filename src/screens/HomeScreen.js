@@ -8,7 +8,7 @@ import DocumentPicker, { isInProgress } from 'react-native-document-picker';
 import { AudioPlayer } from 'react-native-simple-audio-player';
 import { getFrequencyArray, getSongDuration } from '../api/analyze';
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
-import { getSongParts, getMaxFrequency } from '../utils';
+import { getSongParts, getMaxFrequency, isIOS } from '../utils';
 import { FrequencyChart } from '../components/FrequencyChart/FrequencyChart.js';
 import { useSettings } from '../context/SettingsProvider';
 import { useTranslation } from 'react-i18next';
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   input: {
     fontWeight: '700',
-    fontFamily: 'Roboto',
+    fontFamily: isIOS() ? 'System' : 'Roboto',
     fontSize: 18,
     width: 180,
   },

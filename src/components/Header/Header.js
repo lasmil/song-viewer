@@ -16,6 +16,7 @@ import arrowDark from '../../../assets/arrow-dark.png';
 import { COLORS, SCREENS } from '../../constants';
 import { useSettings } from '../../context/SettingsProvider';
 import { useTranslation } from 'react-i18next';
+import { isIOS } from '../../utils';
 
 const Header = ({ navigation, currentScreen }) => {
   const { t } = useTranslation();
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontFamily: 'Roboto',
+    fontFamily: isIOS() ? 'System' : 'Roboto',
     fontWeight: '700',
   },
 });

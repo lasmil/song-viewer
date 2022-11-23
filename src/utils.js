@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { SONG_DURATION_THRESHOLD_SECONDS } from './constants';
 
 export const getMaxFrequency = frequencies => {
@@ -48,4 +49,9 @@ export const transformFrequencies = frequencies => {
   }
 
   return transformedFrequencies;
+};
+
+export const isIOS = () => {
+  const platform = Platform.OS;
+  return platform === 'ios';
 };

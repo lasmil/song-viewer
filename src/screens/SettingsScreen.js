@@ -8,6 +8,7 @@ import { useSettings } from '../context/SettingsProvider';
 import { useTranslation } from 'react-i18next';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useAsyncStorage } from '../hooks/useAsyncStorage';
+import { isIOS } from '../utils';
 
 const SettingsScreen = ({ navigation }) => {
   const [language, setLanguage] = useAsyncStorage('language', 'en');
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   text: {
-    fontFamily: 'Roboto',
+    fontFamily: isIOS() ? 'System' : 'Roboto',
     fontSize: 16,
     fontWeight: '700',
   },

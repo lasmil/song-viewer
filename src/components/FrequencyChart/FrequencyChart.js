@@ -16,7 +16,7 @@ import {
   Tooltip,
 } from 'react-native-responsive-linechart';
 import { COLORS, CHART_WINDOW_THRESHOLD_SECONDS } from '../../constants';
-import { transformFrequencies } from '../../utils';
+import { transformFrequencies, isIOS } from '../../utils';
 
 import arrowLight from '../../../assets/arrow-light.png';
 import arrowDark from '../../../assets/arrow-dark.png';
@@ -36,7 +36,7 @@ export const FrequencyChart = ({ frequencies, duration, maxFrequency }) => {
   const axisStyle = {
     fontSize: 14,
     fontWeight: 'bold',
-    fontFamily: 'Roboto',
+    fontFamily: isIOS() ? 'System' : 'Roboto',
     color: isDarkMode ? COLORS.lighter : COLORS.background,
   };
 
