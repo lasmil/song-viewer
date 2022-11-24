@@ -6,7 +6,7 @@ export const useAsyncStorage = (key, initialValue) => {
   const getValue = useCallback(async () => {
     try {
       const item = await AsyncStorage.getItem(key);
-      return JSON.parse(item || initialValue);
+      return JSON.parse(item) || initialValue;
     } catch (error) {
       console.log(error);
     }

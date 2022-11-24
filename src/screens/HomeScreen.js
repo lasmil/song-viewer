@@ -89,6 +89,7 @@ const HomeScreen = ({ navigation }) => {
         <Header currentScreen={SCREENS.HOME} navigation={navigation} />
         <View style={styles.mainContainer}>
           <Button
+            testID="choose-file-button"
             style={styles.input}
             mode="contained"
             buttonColor={isDarkMode ? COLORS.lighter : COLORS.background}
@@ -100,14 +101,14 @@ const HomeScreen = ({ navigation }) => {
           </Button>
           {result?.fileCopyUri && (
             <View style={styles.container}>
-              <View>
+              <View testID="audio-player">
                 <AudioPlayer
                   url={result.fileCopyUri}
                   style={[styles.audioPlayer, audiPlayerStyle]}
                 />
               </View>
 
-              <View style={styles.container}>
+              <View style={styles.container} testID="frequency-chart">
                 <SkeletonContent
                   containerStyle={styles.skeleton}
                   isLoading={frequencies.length === 0}

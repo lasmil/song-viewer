@@ -44,7 +44,8 @@ You might need to create an account to access them or ask for access.
 ## Future work
 
 - Investigate how to use [react-native-audio-video-tools](https://github.com/PatrissolJuns/react-native-audio-video-tools) - this can come in handy to cut the song and send it to the API (instead of sending the whole song)
-
+- Use detox tests in the build process - this will help us to make sure the app is working as expected; we should also find a way to use detox without having the user to select an mp3 file (maybe we can use a mock file)
+- Add more tests
 
 ## Contributing
 
