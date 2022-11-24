@@ -8,6 +8,10 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
+    "build_android_bundle_debug": "cd android && ./gradlew bundleDebug && cd ..",
+    "ios_install_pods": "cd ios && pod install",
+    "build_ios_app_release": "react-native run-ios --configuration=release",
+    "build_ios_app_debug": "react-native run-ios --configuration=debug",
     "e2e:build": "detox build --configuration",
     "e2e:test_android": "detox test --configuration android.emu.debug",
     "e2e:test_ios": "detox test --configuration ios.sim.debug"
@@ -65,6 +69,12 @@
     ],
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/android",
+      "<rootDir>/ios",
+      "<rootDir>/node_modules",
+      "<rootDir>/e2e"
     ]
   },
   "lint-staged": {

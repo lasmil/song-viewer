@@ -36,6 +36,43 @@ npm run ios
 
 This will start up the Metro bundler, and the iOS & Android emulators, and enable hot-reload in the apps for you to dev against.
 
+### Testing
+
+This project uses [React Native Testing Library](https://github.com/callstack/react-native-testing-library) to test the components. You can find the tests in the `src/__tests__` folder. To run the tests, you can run:
+
+```bash
+npm test
+```
+
+We also use [detox](https://wix.github.io/Detox/) to run e2e tests. You can find the tests in the `e2e` folder. To run the tests, you can run:
+
+For Android:
+
+```bash
+npm run e2e:android
+```
+
+For iOS:
+
+```bash
+npm run e2e:ios
+```
+Follow the guide in the detox docs to setup the environment for the tests.
+
+Once you have the environment setup, you will need to generate an `app bundle` (for android) and an `app file` for iOS. You can do this by running:
+
+For Android:
+```bash
+npm run build_android_bundle_debug
+```
+For iOS:
+
+```bash
+npm run build_ios_app_debug
+```
+
+<b>Note</b> for iOS: currently the .app file is generated in your home directory. Copy the path to it and update the `.detoxrc.js` file. Search for '<path to generated .app file>' and replace it with the path to the generated .app file.
+
 ## Designs and other resources
 
 Designs are available in Figma [here](https://www.figma.com/file/cES8U6tug2xYFymuISaPBT/Untitled?node-id=0%3A1).
