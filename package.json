@@ -5,7 +5,6 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
     "build_android_bundle_debug": "cd android && ./gradlew bundleDebug && cd ..",

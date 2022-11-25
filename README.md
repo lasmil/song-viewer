@@ -16,11 +16,6 @@ In order to get this running you'll need to install the dependencies:
 npm install
 ```
 
-Then you can run the app:
-
-```bash
-npm start
-```
 
 To run the app on an Android or iOS device, you'll need to have an Android emulator running or a device connected via USB. You can run the following command to run the app on the connected device:
 
