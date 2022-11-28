@@ -9,6 +9,10 @@ import { useTranslation } from 'react-i18next';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useAsyncStorage } from '../hooks/useAsyncStorage';
 import { isIOS } from '../utils';
+import Accordion from '../components/Accordion/Accordion';
+import { TermsAndConditionsPage } from '../components/Terms/TermsAndConditionsPage';
+import { PrivacyPage } from '../components/Terms/PrivacyPage';
+import { AboutPage } from '../components/Terms/AboutPage';
 
 const SettingsScreen = ({ navigation }) => {
   const [language, setLanguage] = useAsyncStorage('language', 'en');
@@ -67,6 +71,44 @@ const SettingsScreen = ({ navigation }) => {
           }}
         />
       </View>
+
+      <View style={styles.container}>
+        <View style={styles.settingsContainer}>
+          <Accordion
+            isDarkMode={isDarkMode}
+            title={t('about_page_About')}
+            wrapperAvatarUri={require('../../assets/about.png')}
+            wrapperAvatarStyle={styles.avatar}
+            accordionBody={
+              <View style={styles.accordionContainer}>
+                <AboutPage />
+              </View>
+            }
+          />
+          <Accordion
+            isDarkMode={isDarkMode}
+            title={t('terms_and_conditions')}
+            wrapperAvatarUri={require('../../assets/tnc.png')}
+            wrapperAvatarStyle={styles.avatar}
+            accordionBody={
+              <View style={styles.accordionContainer}>
+                <TermsAndConditionsPage />
+              </View>
+            }
+          />
+          <Accordion
+            isDarkMode={isDarkMode}
+            title={t('privacy_policy')}
+            wrapperAvatarUri={require('../../assets/privacy.png')}
+            wrapperAvatarStyle={styles.avatar}
+            accordionBody={
+              <View style={styles.accordionContainer}>
+                <PrivacyPage />
+              </View>
+            }
+          />
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -98,6 +140,32 @@ const styles = StyleSheet.create({
   },
   itemTextStyle: {
     color: COLORS.black,
+  },
+
+  container: {
+    flex: 1,
+    paddingTop: 20,
+  },
+  settingsContainer: {
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 8,
+    paddingBottom: 48,
+  },
+  accordionContainer: {
+    paddingLeft: 4,
+    paddingRight: 4,
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
+  avatar: {
+    width: 36,
+    height: 36,
+    marginLeft: 0,
+    marginTop: 4,
+    marginBottom: 4,
+    marginRight: 0,
+    backgroundColor: 'transparent',
   },
 });
 

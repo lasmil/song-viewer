@@ -10,6 +10,13 @@ export const COLORS = {
   background: '#3e3f3e',
 };
 
+export const ARROW_ORIENTATIONS = {
+  UP: 'up',
+  DOWN: 'down',
+  LEFT: 'left',
+  RIGHT: 'right',
+};
+
 export const SONG_DURATION_THRESHOLD_SECONDS = 20;
 
 export const SKELETON_LAYOUT = [

@@ -2,5 +2,8 @@
   "choose_file": "Elige archivo",
   "settings": "Ajustes",
   "light_mode": "Modo de luz",
-  "dark_mode": "Modo oscuro"
+  "dark_mode": "Modo oscuro",
+  "terms_and_conditions": "Términos y condiciones",
+  "privacy_policy": "Política de privacidad",
+  "about_page_About": "Sobre esta aplicación"
 }

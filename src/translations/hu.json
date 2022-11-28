@@ -2,5 +2,8 @@
   "choose_file": "Válasszon fájlt",
   "settings": "Beállítások",
   "light_mode": "Világos mód",
-  "dark_mode": "Sötét mód"
+  "dark_mode": "Sötét mód",
+  "terms_and_conditions": "Felhasználási feltételek",
+  "privacy_policy": "Adatvédelmi irányelvek",
+  "about_page_About": "Az alkalmazásról"
 }
