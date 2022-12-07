@@ -19,7 +19,7 @@
     "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-native-community/slider": "^4.3.3",
     "@react-navigation/native": "^6.1.0",
-    "@react-navigation/native-stack": "^6.9.4",
+    "@react-navigation/native-stack": "^6.9.5",
     "detox": "^20.0.3",
     "eslint-plugin-detox": "^1.0.0",
     "i18next": "^22.1.4",
