@@ -43,7 +43,7 @@
     "react-native-svg": "^13.9.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.2.1",
-    "ts-jest": "^29.0.5"
+    "ts-jest": "^29.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
