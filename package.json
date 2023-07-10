@@ -25,7 +25,7 @@
     "i18next": "^23.2.8",
     "intl-pluralrules": "^2.0.1",
     "react": "18.2.0",
-    "react-i18next": "^13.0.1",
+    "react-i18next": "^13.0.2",
     "react-native": "0.72.1",
     "react-native-bootsplash": "^4.7.5",
     "react-native-document-picker": "^9.0.1",
