@@ -20,7 +20,7 @@
     "@react-native-community/slider": "^4.5.0",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
-    "detox": "^20.16.0",
+    "detox": "^20.17.0",
     "eslint-plugin-detox": "^1.0.0",
     "i18next": "^23.7.16",
     "intl-pluralrules": "^2.0.1",
