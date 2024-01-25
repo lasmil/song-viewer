@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
-    "@babel/runtime": "^7.23.8",
+    "@babel/runtime": "^7.23.9",
     "@commitlint/cli": "^18.5.0",
     "@commitlint/config-conventional": "^18.5.0",
     "@react-native-community/eslint-config": "^3.0.0",
