@@ -22,7 +22,7 @@
     "@react-navigation/native-stack": "^6.9.18",
     "detox": "^20.18.1",
     "eslint-plugin-detox": "^1.0.0",
-    "i18next": "^23.8.2",
+    "i18next": "^23.9.0",
     "intl-pluralrules": "^2.0.1",
     "react": "18.2.0",
     "react-i18next": "^14.0.5",
