@@ -41,7 +41,7 @@
     "react-native-simple-audio-player": "^1.0.3",
     "react-native-skeleton-content-nonexpo": "^1.0.13",
     "react-native-svg": "^15.6.0",
-    "react-native-vector-icons": "^10.1.0",
+    "react-native-vector-icons": "^10.2.0",
     "react-native-video": "^6.5.0",
     "ts-jest": "^29.2.5"
   },
